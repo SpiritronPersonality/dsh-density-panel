@@ -43,5 +43,13 @@
     "compression",
     "tokens",
     "recall"
-  ]
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SpiritronPersonality/dsh-density-panel.git"
+  },
+  "homepage": "https://github.com/SpiritronPersonality/dsh-density-panel#readme",
+  "bugs": {
+    "url": "https://github.com/SpiritronPersonality/dsh-density-panel/issues"
+  }
 }
