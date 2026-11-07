@@ -1,0 +1,8 @@
+- insert:
+    - id: density-panel
+      name: '@local/density-panel'
+      config:
+        mode: balanced
+        write: true
+        policy: quality
+        surface: false

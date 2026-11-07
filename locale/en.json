@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Context Density",
+    "description": "Quality-first entry compression: structured summaries for logs/JSON/diffs, originals archived for on-demand recall; tables, prose and code stay untouched. Ships a per-window ledger."
+  }
+}
