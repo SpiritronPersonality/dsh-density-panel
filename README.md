@@ -26,6 +26,17 @@ idle sessions pay no schema cost).
 
 ## Install
 
+From this repository:
+
+```bash
+git clone https://github.com/SpiritronPersonality/dsh-density-panel.git
+# then link it into your DSH profile, e.g. in <profile>/package.json:
+#   "@local/density-panel": "link:<path>/dsh-density-panel"
+# and add "@local/density-panel" to dsh.profile.bundles
+```
+
+Or configure it as a bundle:
+
 The plugin is a normal DSH client plugin bundle:
 
 ```yaml
