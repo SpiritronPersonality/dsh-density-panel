@@ -6,6 +6,11 @@ answers**, archives the originals, and keeps a per-context-window ledger of what
 It is deliberately conservative: the goal is information density (remove noise), not a
 smaller token bill. Token savings are a side effect.
 
+![Density panel](docs/panel.png)
+
+*The sidebar panel, rendered from sample data: pressure against the native trigger line,
+savings, the per-window ledger, and anchor stability.*
+
 ## What it does — and what it refuses to do
 
 | Input | Action | Why |

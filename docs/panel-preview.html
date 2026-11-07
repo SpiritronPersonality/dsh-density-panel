@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>Density panel preview</title>
+<style>
+  :root {
+    --bg: #0f1115;
+    --card: #353638;
+    --border: rgba(255,255,255,0.06);
+    --line: rgba(255,255,255,0.12);
+    --text: #f9fafb;
+    --sub: #cfd3d6;
+    --ter: #adb2b8;
+    --cap: #81858c;
+    --ok: #22c55e;
+    --warn: #f59e0b;
+    --err: #ef4444;
+    --brand: #7aaaff;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font-family: "Segoe UI", "Microsoft YaHei", system-ui, sans-serif;
+    font-size: 13px; line-height: 1.55; padding: 20px 24px 28px;
+    width: 760px;
+  }
+  .head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+  .title { font-size: 16px; line-height: 24px; font-weight: 600; }
+  .subtitle { font-size: 12px; line-height: 18px; color: var(--ter); }
+  .badge {
+    display: inline-flex; align-items: center; gap: 5px; font-size: 11px; line-height: 16px;
+    color: var(--sub); border: 1px solid var(--line); border-radius: 999px; padding: 1px 8px;
+  }
+  .dot { width: 5px; height: 5px; border-radius: 999px; background: var(--ok); }
+  .meta { display: flex; gap: 8px; flex-wrap: wrap; font-size: 12px; color: var(--sub); margin: 12px 0; }
+  .meta .faint { color: var(--cap); }
+  .stack { display: flex; flex-direction: column; gap: 12px; }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 14px 16px; display: flex; flex-direction: column; gap: 10px; }
+  .card-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+  .card-title { font-size: 12px; line-height: 18px; color: var(--ter); }
+  .card-aside { font-size: 11px; color: var(--ter); }
+  .grid2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  .stat-label { font-size: 11px; line-height: 16px; color: var(--ter); }
+  .stat-value { font-size: 15px; line-height: 22px; font-weight: 600; font-variant-numeric: tabular-nums; }
+  .big { font-size: 26px; line-height: 32px; font-weight: 600; font-variant-numeric: tabular-nums; }
+  .row { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+  .row-label { font-size: 12px; color: var(--sub); }
+  .row-value { font-size: 12px; font-variant-numeric: tabular-nums; }
+  .muted { color: var(--ter); }
+  .track { height: 6px; border-radius: 999px; background: var(--bg); box-shadow: inset 0 0 0 1px var(--border); overflow: hidden; display: flex; }
+  .seg-anchor { background: var(--cap); }
+  .seg-work { background: var(--warn); }
+  .legend { display: flex; gap: 12px; flex-wrap: wrap; font-size: 11px; color: var(--ter); }
+  .hint { font-size: 11px; line-height: 16px; color: var(--cap); }
+  .chev { color: var(--cap); font-size: 11px; }
+  .foot { font-size: 11px; line-height: 16px; color: var(--cap); margin-top: 4px; }
+</style>
+</head>
+<body>
+  <div class="head">
+    <div>
+      <div class="title">上下文密度</div>
+      <div class="subtitle">只读观测 · 不参与改写</div>
+    </div>
+    <div class="badge"><span class="dot"></span>实时</div>
+  </div>
+
+  <div class="meta">
+    <span>deepseek-account / deepseek-flash</span><span class="faint">·</span>
+    <span>上下文窗口 1.05M</span><span class="faint">·</span>
+    <span>第 1 个周期</span>
+  </div>
+
+  <div class="stack">
+    <div class="card">
+      <div class="card-head"><div class="card-title">容量与触发线</div></div>
+      <div class="grid2">
+        <div><div class="stat-label">上下文窗口</div><div class="stat-value">1.05M</div></div>
+        <div><div class="stat-label">压缩触发线</div><div class="stat-value">727.0k</div></div>
+        <div><div class="stat-label">输出预留</div><div class="stat-value">256.0k</div></div>
+        <div><div class="stat-label">原生安全余量</div><div class="stat-value">65.5k</div></div>
+      </div>
+      <div class="hint">触发线 = min(窗口 × 80%, 窗口 − 输出预留 − 安全余量)，压力按这条线计算。</div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><div class="card-title">当前压力</div><div class="card-aside">494.9k / 727.0k</div></div>
+      <div style="display:flex;align-items:baseline;gap:8px">
+        <div class="big" style="color: var(--warn)">68.1%</div>
+        <div style="font-size:12px;color:var(--ter)">已用触发线的</div>
+      </div>
+      <div class="track"><div class="seg-anchor" style="width:0.01%"></div><div class="seg-work" style="width:68.1%"></div></div>
+      <div class="legend"><span>锚点 151</span><span>工作 494.8k</span><span>余量 232.1k</span></div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><div class="card-title">节省（相对全部输入）</div><div class="card-aside">净省占全部输入 0.5%</div></div>
+      <div class="row"><div class="big">+17.9k</div><div style="font-size:12px;color:var(--ter)">净额 token</div></div>
+      <div class="row"><span class="row-label">携带节省</span><span class="row-value">19.5k</span></div>
+      <div class="row"><span class="row-label">扣减（状态板 + 召回）</span><span class="row-value muted">-1.6k</span></div>
+      <div class="row"><span class="row-label">入口改写 / 轮末卡片</span><span class="row-value muted">7 条 / 0 条</span></div>
+      <div class="row"><span class="row-label">全部输入 token</span><span class="row-value muted">3.90M</span></div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><div class="card-title">窗口账本</div><div class="card-aside">1 个窗口已记录</div></div>
+      <div class="row"><span class="row-label">b8f90d · 进行中</span><span class="row-value">入口 7 · 省 6.1k · 峰值 494.9k</span></div>
+      <div class="hint">每个窗口独立记账，写入 ~/.density/windows/&lt;会话&gt;.jsonl，重启后仍可回看。</div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><div class="card-title">锚点与归档</div><div class="card-aside">12 条</div></div>
+      <div class="grid2">
+        <div><div class="stat-label">锚点 token</div><div class="stat-value">151</div></div>
+        <div><div class="stat-label">指纹</div><div class="stat-value">c0692a9feea4</div></div>
+      </div>
+      <div class="hint">锚点原文不进入压缩，只做逐字保留；召回质量需人工标注集，暂不显示。</div>
+    </div>
+
+    <div class="foot">41 次请求 · 14:32:05 更新 · 每 2 秒刷新 · 面板 v31</div>
+  </div>
+</body>
+</html>
